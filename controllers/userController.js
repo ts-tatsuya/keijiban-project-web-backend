@@ -1,5 +1,5 @@
 const { Users } = require('../database/schema');
-const { checkEmailFormat } = require('../helper');
+const { checkEmailFormat, checkUsernameFormat } = require('../helper');
 const bcrypt = require('bcrypt');
 const productCountOnPage = 10;
 
@@ -24,6 +24,32 @@ module.exports = {
                 return res.status(500).send({
                     error: 500,
                     message: "email has wrong format!"
+                });
+            }
+            if (checkUsernameFormat(username) == false) {
+                return res.status(500).send({
+                    error: 500,
+                    message: "username has wrong format!"
+                });
+            }
+            const isEmailRegistered = await Users.Users.findOne({
+                email: email
+            }).exec();
+
+            if (isEmailRegistered) {
+                return res.status(500).send({
+                    error: 500,
+                    message: "email already registered!"
+                });
+            }
+            const isUsernameRegistered = await Users.Users.findOne({
+                username: username
+            }).exec();
+
+            if (isUsernameRegistered) {
+                return res.status(500).send({
+                    error: 500,
+                    message: "username already used!"
                 });
             }
 
