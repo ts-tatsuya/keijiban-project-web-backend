@@ -1,20 +1,20 @@
 const emailChecker = require('../helper/emailChecker');
 
 
-test('Verify proper email', () => {
+test('Return true when email has a proper format', () => {
 
     expect(emailChecker.checkEmailFormat('tester@gmail.com')).toBe(true);
 
 });
 
-test('Detect missing domain', () => {
+test('Return false when domain is missing', () => {
     expect(emailChecker.checkEmailFormat('tester@')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@gmail')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@.com')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@gmail.')).toBe(false);
 });
 
-test('Detect invalid domain', () => {
+test('Return false when domain name has wrong format', () => {
     expect(emailChecker.checkEmailFormat('tester@__.___')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@!gmail.com')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@.....')).toBe(false);
@@ -22,11 +22,11 @@ test('Detect invalid domain', () => {
     expect(emailChecker.checkEmailFormat('tester@gmail....')).toBe(false);
 });
 
-test('Detect missing @', () => {
+test('Return false when @ is missing', () => {
     expect(emailChecker.checkEmailFormat('testergmail.com')).toBe(false);
 });
 
-test('Deny email with space', () => {
+test('Return false when email has space', () => {
 
     expect(emailChecker.checkEmailFormat('tester tester@gmail.com')).toBe(false);
     expect(emailChecker.checkEmailFormat('tester@g mail.com')).toBe(false);
@@ -34,13 +34,13 @@ test('Deny email with space', () => {
     expect(emailChecker.checkEmailFormat('tes ter tester@g mail.co m')).toBe(false);
 });
 
-test('Detect missing username', () => {
+test('Return false when username is missing', () => {
 
     expect(emailChecker.checkEmailFormat('@gmail.com')).toBe(false);
 
 });
 
-test('Deny asian characters or non-roman characters', () => {
+test('Return false when email has asian characters or non-roman characters', () => {
     expect(emailChecker.checkEmailFormat('紅莉栖@gmail.com')).toBe(false);
     expect(emailChecker.checkEmailFormat('홍리석@gmail.com')).toBe(false);
     expect(emailChecker.checkEmailFormat('Курису@gmail.com')).toBe(false);

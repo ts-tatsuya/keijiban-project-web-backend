@@ -1,7 +1,7 @@
 const usernameChecker = require('../helper/usernameChecker');
 
 
-test('Verify proper username', () => {
+test('Return true when username has proper format', () => {
 
     expect(usernameChecker.checkUsernameFormat('tester')).toBe(true);
     expect(usernameChecker.checkUsernameFormat('tester1230')).toBe(true);
@@ -12,20 +12,20 @@ test('Verify proper username', () => {
 
 });
 
-test('Deny username starts with number', () => {
+test('Return false when username starts with number', () => {
 
     expect(usernameChecker.checkUsernameFormat('123tester')).toBe(false);
 
 });
 
-test('Deny username starts with period or underscore', () => {
+test('Return false when username starts with period or underscore', () => {
 
     expect(usernameChecker.checkUsernameFormat('.tester')).toBe(false);
     expect(usernameChecker.checkUsernameFormat('_tester')).toBe(false);
 
 });
 
-test('Deny asian characters or non-roman characters', () => {
+test('Return false when username has asian characters or non-roman characters', () => {
     expect(usernameChecker.checkUsernameFormat('紅莉栖')).toBe(false);
     expect(usernameChecker.checkUsernameFormat('홍리석')).toBe(false);
     expect(usernameChecker.checkUsernameFormat('Курису')).toBe(false);
